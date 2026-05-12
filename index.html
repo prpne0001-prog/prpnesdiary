@@ -7,35 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #0f0e17;
-    --surface: #1a1928;
-    --surface2: #22213a;
-    --accent-lol: #c89b3c;
-    --accent-mc: #6aab2e;
-    --accent-review: #e05c6b;
-    --text: #f2f0ff;
-    --text-muted: #9895b8;
-    --border: rgba(255,255,255,0.07);
+    --bg: #0f0e17; --surface: #1a1928; --surface2: #22213a;
+    --accent-lol: #c89b3c; --accent-mc: #6aab2e; --accent-red: #e05c6b;
+    --text: #f2f0ff; --text-muted: #9895b8; --border: rgba(255,255,255,0.07);
     --radius: 14px;
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Baloo 2', cursive;
-    font-size: 16px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-
-  /* starfield */
+  body { background: var(--bg); color: var(--text); font-family: 'Baloo 2', cursive; font-size: 16px; line-height: 1.7; min-height: 100vh; }
   body::before {
-    content: '';
-    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background-image:
       radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
       radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
@@ -43,264 +24,125 @@
       radial-gradient(1px 1px at 75% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
       radial-gradient(1px 1px at 88% 10%, rgba(255,255,255,0.3) 0%, transparent 100%),
       radial-gradient(1px 1px at 20% 85%, rgba(255,255,255,0.25) 0%, transparent 100%),
-      radial-gradient(1px 1px at 65% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 42% 48%, rgba(200,155,60,0.25) 0%, transparent 100%),
-      radial-gradient(1px 1px at 93% 55%, rgba(255,255,255,0.25) 0%, transparent 100%);
+      radial-gradient(1.5px 1.5px at 42% 48%, rgba(200,155,60,0.25) 0%, transparent 100%);
   }
-
   .wrapper { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
 
-  /* =====================
-     NAVIGATION
-  ===================== */
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 24px 0 20px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 52px;
-  }
-  .logo {
-    font-family: 'Caveat', cursive; font-size: 28px; font-weight: 700;
-    background: linear-gradient(120deg, #c89b3c 0%, #f2f0ff 50%, #6aab2e 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    text-decoration: none; cursor: pointer; border: none; background-color: transparent;
-  }
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a {
-    font-size: 14px; font-weight: 600; color: var(--text-muted);
-    text-decoration: none; letter-spacing: 0.5px;
-    transition: color 0.2s; cursor: pointer;
-    position: relative;
-  }
-  .nav-links a::after {
-    content: ''; position: absolute; left: 0; bottom: -3px;
-    width: 0; height: 2px; border-radius: 2px;
-    background: var(--accent-lol);
-    transition: width 0.25s;
-  }
+  /* NAV */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 52px; }
+  .logo { font-family: 'Caveat', cursive; font-size: 28px; font-weight: 700; background: linear-gradient(120deg, #c89b3c 0%, #f2f0ff 50%, #6aab2e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; cursor: pointer; border: none; background-color: transparent; }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 14px; font-weight: 600; color: var(--text-muted); text-decoration: none; cursor: pointer; transition: color 0.2s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 2px; border-radius: 2px; background: var(--accent-lol); transition: width 0.25s; }
   .nav-links a:hover { color: var(--text); }
-  .nav-links a:hover::after { width: 100%; }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
   .nav-links a.active { color: var(--text); }
-  .nav-links a.active::after { width: 100%; }
+  .write-btn { padding: 8px 18px; border-radius: 999px; border: none; cursor: pointer; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 13px; background: var(--accent-lol); color: #0f0e17; transition: transform 0.15s, opacity 0.15s; }
+  .write-btn:hover { transform: scale(1.04); opacity: 0.88; }
 
-  /* =====================
-     PAGES (show/hide)
-  ===================== */
+  /* PAGES */
   .page { display: none; }
   .page.active { display: block; animation: fadeUp 0.35s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* =====================
-     HERO
-  ===================== */
-  .hero {
-    display: grid; grid-template-columns: 1fr auto;
-    gap: 32px; align-items: center;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 40px 44px;
-    margin-bottom: 48px;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; top: -60px; right: -60px;
-    width: 260px; height: 260px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(200,155,60,0.07) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--accent-lol); border: 1px solid rgba(200,155,60,0.3);
-    background: rgba(200,155,60,0.08);
-    padding: 4px 12px; border-radius: 999px; margin-bottom: 14px;
-  }
-  .hero h1 {
-    font-family: 'Caveat', cursive; font-size: 50px; font-weight: 700; line-height: 1.1;
-    color: var(--text); margin-bottom: 12px;
-  }
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 44px; margin-bottom: 48px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(200,155,60,0.07) 0%, transparent 70%); pointer-events: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-lol); border: 1px solid rgba(200,155,60,0.3); background: rgba(200,155,60,0.08); padding: 4px 12px; border-radius: 999px; margin-bottom: 14px; }
+  .hero h1 { font-family: 'Caveat', cursive; font-size: 50px; font-weight: 700; line-height: 1.1; color: var(--text); margin-bottom: 12px; }
   .hero h1 span { color: var(--accent-lol); }
   .hero p { font-size: 15px; color: var(--text-muted); max-width: 400px; line-height: 1.7; margin-bottom: 24px; }
   .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn-primary {
-    padding: 10px 22px; border-radius: 999px; border: none; cursor: pointer;
-    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
-    background: var(--accent-lol); color: #0f0e17;
-    transition: transform 0.15s, opacity 0.15s;
-  }
-  .btn-primary:hover { transform: scale(1.04); opacity: 0.88; }
-  .btn-ghost {
-    padding: 10px 22px; border-radius: 999px; cursor: pointer;
-    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px;
-    background: transparent; color: var(--text);
-    border: 1px solid var(--border);
-    transition: border-color 0.2s, background 0.2s;
-  }
+  .btn-primary { padding: 10px 22px; border-radius: 999px; border: none; cursor: pointer; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px; background: var(--accent-lol); color: #0f0e17; transition: transform 0.15s; }
+  .btn-primary:hover { transform: scale(1.04); }
+  .btn-ghost { padding: 10px 22px; border-radius: 999px; cursor: pointer; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px; background: transparent; color: var(--text); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
   .btn-ghost:hover { border-color: rgba(255,255,255,0.2); background: var(--surface2); }
   .hero-icons { font-size: 72px; line-height: 1; display: flex; flex-direction: column; gap: 6px; opacity: 0.8; }
 
-  /* =====================
-     SECTION HEADER
-  ===================== */
-  .section-header {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
-  }
+  /* SECTION HEADER */
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
   .section-header h2 { font-family: 'Caveat', cursive; font-size: 26px; font-weight: 700; }
-  .pill {
-    font-size: 11px; font-weight: 700; padding: 3px 10px;
-    border-radius: 999px; letter-spacing: 0.5px; text-transform: uppercase;
-  }
-  .pill-lol    { background: rgba(200,155,60,0.15); color: var(--accent-lol); }
-  .pill-mc     { background: rgba(106,171,46,0.15);  color: var(--accent-mc); }
+  .pill { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .pill-lol { background: rgba(200,155,60,0.15); color: var(--accent-lol); }
+  .pill-mc  { background: rgba(106,171,46,0.15);  color: var(--accent-mc); }
 
-  /* =====================
-     POST CARDS
-  ===================== */
-  .posts-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px; margin-bottom: 48px;
-  }
-  .post-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); overflow: hidden;
-    cursor: pointer; transition: transform 0.2s, border-color 0.2s;
-  }
+  /* POST CARDS */
+  .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; margin-bottom: 48px; }
+  .post-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
   .post-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.14); }
-  .post-card-thumb {
-    width: 100%; aspect-ratio: 16/8;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 44px;
-  }
+  .post-card-thumb { width: 100%; aspect-ratio: 16/8; display: flex; align-items: center; justify-content: center; font-size: 44px; }
   .thumb-lol { background: linear-gradient(135deg, #1a150a 0%, #2d2210 100%); }
   .thumb-mc  { background: linear-gradient(135deg, #0d1f08 0%, #1d3c10 100%); }
   .post-card-body { padding: 16px 18px 18px; }
-  .card-tag {
-    display: inline-block; font-size: 11px; font-weight: 700;
-    letter-spacing: 1px; text-transform: uppercase;
-    padding: 3px 10px; border-radius: 999px; margin-bottom: 9px;
-  }
+  .card-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 9px; }
   .tag-lol { background: rgba(200,155,60,0.15); color: var(--accent-lol); }
   .tag-mc  { background: rgba(106,171,46,0.15);  color: var(--accent-mc); }
-  .post-card h3 {
-    font-family: 'Caveat', cursive; font-size: 20px; font-weight: 700;
-    line-height: 1.25; margin-bottom: 6px; color: var(--text);
-  }
+  .post-card h3 { font-family: 'Caveat', cursive; font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 6px; color: var(--text); }
   .post-card p { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 12px; }
-  .post-card-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 14px; }
-  .post-card.empty .post-card-body { opacity: 0.5; }
-  .empty-label {
-    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-    color: var(--text-muted); border: 1px dashed rgba(255,255,255,0.15);
-    padding: 3px 10px; border-radius: 999px; margin-bottom: 9px; display: inline-block;
-  }
+  .post-card-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 14px; justify-content: space-between; align-items: center; }
+  .delete-btn { font-size: 11px; color: var(--accent-red); cursor: pointer; background: none; border: none; font-family: 'Baloo 2', cursive; font-weight: 700; padding: 0; opacity: 0.7; }
+  .delete-btn:hover { opacity: 1; }
 
-  /* coming soon banner */
-  .coming-soon {
-    background: var(--surface); border: 1px solid rgba(224,92,107,0.18);
-    border-radius: var(--radius); padding: 28px 32px;
-    display: flex; align-items: center; gap: 24px;
-    margin-bottom: 48px;
-  }
+  /* EMPTY STATE */
+  .empty-state { background: var(--surface); border: 1px dashed rgba(255,255,255,0.1); border-radius: var(--radius); padding: 40px; text-align: center; color: var(--text-muted); margin-bottom: 48px; }
+  .empty-state .empty-icon { font-size: 36px; margin-bottom: 12px; }
+  .empty-state p { font-size: 14px; line-height: 1.6; }
+  .empty-state button { margin-top: 16px; padding: 9px 20px; border-radius: 999px; border: none; cursor: pointer; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 13px; background: var(--accent-lol); color: #0f0e17; }
+
+  /* COMING SOON */
+  .coming-soon { background: var(--surface); border: 1px solid rgba(224,92,107,0.18); border-radius: var(--radius); padding: 28px 32px; display: flex; align-items: center; gap: 24px; margin-bottom: 48px; }
   .coming-soon-icon { font-size: 44px; flex-shrink: 0; }
-  .coming-soon h3 { font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700; color: var(--accent-review); margin-bottom: 4px; }
+  .coming-soon h3 { font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700; color: var(--accent-red); margin-bottom: 4px; }
   .coming-soon p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
-  /* =====================
-     ABOUT PAGE
-  ===================== */
-  .about-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 36px 40px;
-    display: flex; gap: 28px; align-items: flex-start;
-  }
-  .about-avatar {
-    width: 68px; height: 68px; border-radius: 50%; flex-shrink: 0;
-    background: linear-gradient(135deg, #c89b3c, #6aab2e);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Caveat', cursive; font-size: 26px; font-weight: 700; color: var(--bg);
-  }
+  /* ABOUT */
+  .about-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 40px; display: flex; gap: 28px; align-items: flex-start; }
+  .about-avatar { width: 68px; height: 68px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, #c89b3c, #6aab2e); display: flex; align-items: center; justify-content: center; font-family: 'Caveat', cursive; font-size: 26px; font-weight: 700; color: var(--bg); }
   .about-card h2 { font-family: 'Caveat', cursive; font-size: 26px; font-weight: 700; margin-bottom: 10px; }
   .about-card p { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
 
-  /* =====================
-     BLOG POST TEMPLATE
-  ===================== */
+  /* WRITE POST MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadeUp 0.2s ease; }
+  .modal { background: var(--surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 32px; width: 100%; max-width: 580px; max-height: 90vh; overflow-y: auto; }
+  .modal h2 { font-family: 'Caveat', cursive; font-size: 28px; font-weight: 700; margin-bottom: 24px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: var(--surface2); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 10px 14px; color: var(--text);
+    font-family: 'Baloo 2', cursive; font-size: 14px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: rgba(200,155,60,0.5); }
+  .form-group textarea { min-height: 200px; resize: vertical; line-height: 1.7; }
+  .form-group select option { background: var(--surface2); }
+  .modal-buttons { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+  .cancel-btn { padding: 10px 22px; border-radius: 999px; cursor: pointer; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px; background: transparent; color: var(--text-muted); border: 1px solid var(--border); transition: border-color 0.2s; }
+  .cancel-btn:hover { border-color: rgba(255,255,255,0.2); }
+  .publish-btn { padding: 10px 22px; border-radius: 999px; border: none; cursor: pointer; font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 14px; background: var(--accent-lol); color: #0f0e17; transition: transform 0.15s; }
+  .publish-btn:hover { transform: scale(1.04); }
+  .form-tip { font-size: 12px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+
+  /* POST PAGE */
   .post-page { max-width: 700px; margin: 0 auto; }
-
-  .back-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 600; color: var(--text-muted);
-    cursor: pointer; margin-bottom: 32px;
-    transition: color 0.2s;
-    background: none; border: none; font-family: 'Baloo 2', cursive;
-    padding: 0;
-  }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; margin-bottom: 32px; transition: color 0.2s; background: none; border: none; font-family: 'Baloo 2', cursive; padding: 0; }
   .back-btn:hover { color: var(--text); }
-
-  .post-cover {
-    width: 100%; aspect-ratio: 16/7;
-    border-radius: var(--radius); margin-bottom: 28px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 72px; border: 1px solid var(--border);
-  }
+  .post-cover { width: 100%; aspect-ratio: 16/7; border-radius: var(--radius); margin-bottom: 28px; display: flex; align-items: center; justify-content: center; font-size: 72px; border: 1px solid var(--border); }
   .post-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-  .post-title {
-    font-family: 'Caveat', cursive; font-size: 42px; font-weight: 700;
-    line-height: 1.15; color: var(--text); margin-bottom: 10px;
-  }
+  .post-title { font-family: 'Caveat', cursive; font-size: 42px; font-weight: 700; line-height: 1.15; color: var(--text); margin-bottom: 10px; }
   .post-meta { font-size: 13px; color: var(--text-muted); display: flex; gap: 16px; margin-bottom: 8px; }
   .post-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
-
-  .post-content { font-size: 15px; color: var(--text-muted); line-height: 1.85; min-height: 200px; }
-  .post-content p  { margin-bottom: 1.2em; }
-  .post-content h2 { font-family: 'Caveat', cursive; font-size: 26px; color: var(--text); margin: 1.6em 0 0.5em; }
-  .post-content h3 { font-family: 'Caveat', cursive; font-size: 21px; color: var(--text); margin: 1.4em 0 0.4em; }
-  .post-content ul, .post-content ol { padding-left: 1.5em; margin-bottom: 1.2em; }
-  .post-content li { margin-bottom: 0.4em; }
-
-  .post-content-placeholder {
-    border: 1px dashed rgba(255,255,255,0.1); border-radius: var(--radius);
-    padding: 40px 32px; text-align: center; color: var(--text-muted);
-  }
-  .post-content-placeholder .placeholder-icon { font-size: 36px; margin-bottom: 12px; }
-  .post-content-placeholder p { font-size: 14px; line-height: 1.7; }
-  .post-content-placeholder code {
-    font-size: 12px; background: var(--surface2); padding: 2px 8px;
-    border-radius: 4px; color: var(--accent-lol); font-family: monospace;
-  }
-
-  /* Comments */
+  .post-content { font-size: 15px; color: var(--text-muted); line-height: 1.85; white-space: pre-wrap; }
   .comments-section { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
   .comments-section h3 { font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700; margin-bottom: 16px; }
-  .comments-placeholder {
-    background: var(--surface); border: 1px dashed rgba(255,255,255,0.1);
-    border-radius: var(--radius); padding: 28px 24px; text-align: center;
-  }
+  .comments-placeholder { background: var(--surface); border: 1px dashed rgba(255,255,255,0.1); border-radius: var(--radius); padding: 28px 24px; text-align: center; }
   .comments-placeholder p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
-  .comments-placeholder code {
-    font-size: 12px; background: var(--surface2); padding: 2px 8px;
-    border-radius: 4px; color: var(--accent-mc); font-family: monospace;
-  }
 
-  /* =====================
-     FOOTER
-  ===================== */
-  footer {
-    border-top: 1px solid var(--border); margin-top: 64px; padding-top: 28px;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 13px; color: var(--text-muted);
-  }
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); margin-top: 64px; padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted); }
   .footer-logo { font-family: 'Caveat', cursive; font-size: 20px; font-weight: 700; color: var(--text); }
 
-  /* =====================
-     RESPONSIVE
-  ===================== */
+  /* RESPONSIVE */
   @media (max-width: 600px) {
     .hero { grid-template-columns: 1fr; padding: 28px 22px; }
     .hero h1 { font-size: 38px; }
@@ -316,10 +158,6 @@
 <body>
 <div class="wrapper">
 
-  <!-- =====================
-       NAVIGATION
-       To rename a link, just change the text inside <a>
-  ===================== -->
   <nav>
     <button class="logo" onclick="showPage('home')">Prpne's Diary ✦</button>
     <ul class="nav-links">
@@ -327,19 +165,15 @@
       <li><a onclick="showPage('league')"    id="nav-league">League</a></li>
       <li><a onclick="showPage('minecraft')" id="nav-minecraft">Minecraft</a></li>
       <li><a onclick="showPage('about')"     id="nav-about">About</a></li>
+      <li><button class="write-btn" onclick="openWriteModal()">✏️ Write Post</button></li>
     </ul>
   </nav>
 
-
-  <!-- =====================
-       HOME PAGE
-  ===================== -->
+  <!-- HOME -->
   <div id="page-home" class="page active">
-
     <section class="hero">
       <div>
         <div class="hero-badge">⭐ Personal Gaming Diary</div>
-        <!-- EDIT: Change the title and description below -->
         <h1>Welcome to<br/><span>Prpne's Diary</span></h1>
         <p>A cozy little corner of the internet where I write about my adventures in League of Legends, Minecraft, and beyond. Honest thoughts, no fluff.</p>
         <div class="hero-buttons">
@@ -350,43 +184,12 @@
       <div class="hero-icons" aria-hidden="true"><span>⚔️</span><span>⛏️</span></div>
     </section>
 
-    <!-- League preview on home -->
-    <div class="section-header">
-      <h2>League of Legends</h2>
-      <span class="pill pill-lol">LoL</span>
-    </div>
-    <div class="posts-grid">
-      <!-- HOME LEAGUE PLACEHOLDER — replace when you have a real post -->
-      <div class="post-card empty" onclick="showPage('league')">
-        <div class="post-card-thumb thumb-lol">⚔️</div>
-        <div class="post-card-body">
-          <span class="empty-label">Coming soon</span>
-          <h3>First League post on the way</h3>
-          <p>Check back once I've written my first entry!</p>
-          <div class="post-card-meta"><span>📅 Date TBD</span></div>
-        </div>
-      </div>
-    </div>
+    <div class="section-header"><h2>League of Legends</h2><span class="pill pill-lol">LoL</span></div>
+    <div class="posts-grid" id="home-lol-grid"></div>
 
-    <!-- Minecraft preview on home -->
-    <div class="section-header">
-      <h2>Minecraft</h2>
-      <span class="pill pill-mc">MC</span>
-    </div>
-    <div class="posts-grid">
-      <!-- HOME MINECRAFT PLACEHOLDER — replace when you have a real post -->
-      <div class="post-card empty" onclick="showPage('minecraft')">
-        <div class="post-card-thumb thumb-mc">⛏️</div>
-        <div class="post-card-body">
-          <span class="empty-label">Coming soon</span>
-          <h3>First Minecraft post on the way</h3>
-          <p>Check back once I've written my first entry!</p>
-          <div class="post-card-meta"><span>📅 Date TBD</span></div>
-        </div>
-      </div>
-    </div>
+    <div class="section-header"><h2>Minecraft</h2><span class="pill pill-mc">MC</span></div>
+    <div class="posts-grid" id="home-mc-grid"></div>
 
-    <!-- Reviews teaser -->
     <div class="coming-soon">
       <div class="coming-soon-icon">🎮</div>
       <div>
@@ -394,257 +197,107 @@
         <p>Once I've settled into writing about League and Minecraft, I'll start doing proper game reviews. Stay tuned!</p>
       </div>
     </div>
+  </div>
 
-  </div><!-- end page-home -->
-
-
-  <!-- =====================
-       LEAGUE PAGE
-       To add a post:
-       1. Copy the post-card block below (the non-empty example at the bottom)
-       2. Fill in title, description, date, and the openPost() details
-       3. Add a matching content block in the BLOG POST TEMPLATE section
-  ===================== -->
+  <!-- LEAGUE -->
   <div id="page-league" class="page">
+    <div class="section-header"><h2>League of Legends</h2><span class="pill pill-lol">LoL</span></div>
+    <div class="posts-grid" id="league-grid"></div>
+  </div>
 
-    <div class="section-header">
-      <h2>League of Legends</h2>
-      <span class="pill pill-lol">LoL</span>
-    </div>
-
-    <div class="posts-grid">
-
-      <!-- PLACEHOLDER — delete this card when you add your first real post -->
-      <div class="post-card empty">
-        <div class="post-card-thumb thumb-lol">⚔️</div>
-        <div class="post-card-body">
-          <span class="empty-label">Coming soon</span>
-          <h3>Your first League post</h3>
-          <p>Write your entry, then replace this card with a real one below.</p>
-          <div class="post-card-meta"><span>📅 Date TBD</span></div>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           EXAMPLE OF A REAL POST CARD (currently hidden)
-           When you're ready to publish, remove the style="display:none"
-           and fill in your own details.
-
-      <div class="post-card" style="display:none"
-        onclick="openPost('lol-post-1', {
-          title: 'My First Week in the Rift',
-          date: 'May 15, 2026',
-          tag: 'lol',
-          cover: '⚔️'
-        })">
-        <div class="post-card-thumb thumb-lol">⚔️</div>
-        <div class="post-card-body">
-          <span class="card-tag tag-lol">League of Legends</span>
-          <h3>My First Week in the Rift</h3>
-          <p>Flash on D or F? Why is everyone angry? My first seven days in League.</p>
-          <div class="post-card-meta"><span>📅 May 15, 2026</span><span>📖 5 min</span></div>
-        </div>
-      </div>
-      ============================================================ -->
-
-      <!-- ADD YOUR LEAGUE POSTS BELOW THIS LINE -->
-
-    </div>
-  </div><!-- end page-league -->
-
-
-  <!-- =====================
-       MINECRAFT PAGE
-       Same structure as League above
-  ===================== -->
+  <!-- MINECRAFT -->
   <div id="page-minecraft" class="page">
+    <div class="section-header"><h2>Minecraft</h2><span class="pill pill-mc">MC</span></div>
+    <div class="posts-grid" id="minecraft-grid"></div>
+  </div>
 
-    <div class="section-header">
-      <h2>Minecraft</h2>
-      <span class="pill pill-mc">MC</span>
-    </div>
-
-    <div class="posts-grid">
-
-      <!-- PLACEHOLDER — delete this card when you add your first real post -->
-      <div class="post-card empty">
-        <div class="post-card-thumb thumb-mc">⛏️</div>
-        <div class="post-card-body">
-          <span class="empty-label">Coming soon</span>
-          <h3>Your first Minecraft post</h3>
-          <p>Write your entry, then replace this card with a real one below.</p>
-          <div class="post-card-meta"><span>📅 Date TBD</span></div>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           EXAMPLE OF A REAL POST CARD (currently hidden)
-           Remove style="display:none" and fill in your details.
-
-      <div class="post-card" style="display:none"
-        onclick="openPost('mc-post-1', {
-          title: 'Building My Dream House — Day 1',
-          date: 'May 15, 2026',
-          tag: 'mc',
-          cover: '⛏️'
-        })">
-        <div class="post-card-thumb thumb-mc">⛏️</div>
-        <div class="post-card-body">
-          <span class="card-tag tag-mc">Minecraft</span>
-          <h3>Building My Dream House — Day 1</h3>
-          <p>Started survival mode, died to a creeper twice, still made progress.</p>
-          <div class="post-card-meta"><span>📅 May 15, 2026</span><span>📖 3 min</span></div>
-        </div>
-      </div>
-      ============================================================ -->
-
-      <!-- ADD YOUR MINECRAFT POSTS BELOW THIS LINE -->
-
-    </div>
-  </div><!-- end page-minecraft -->
-
-
-  <!-- =====================
-       ABOUT PAGE
-       Edit the text inside to say what you want about yourself
-  ===================== -->
+  <!-- ABOUT -->
   <div id="page-about" class="page">
     <div class="section-header"><h2>About</h2></div>
     <div class="about-card">
       <div class="about-avatar">P</div>
       <div>
-        <!-- EDIT: Write about yourself here -->
         <h2>Hey, I'm Prpne 👋</h2>
-        <p>
-          Just a gamer who decided to start writing about it. Right now I'm deep in League of Legends
-          and Minecraft, figuring things out one session at a time. This diary is my way of documenting
-          the journey — the wins, the losses, the creeper deaths, and everything in between.
-          Eventually I want to write game reviews too. Hope you enjoy the ride!
-        </p>
+        <p>Just a gamer who decided to start writing about it. Right now I'm deep in League of Legends and Minecraft, figuring things out one session at a time. This diary is my way of documenting the journey — the wins, the losses, the creeper deaths, and everything in between. Eventually I want to write game reviews too. Hope you enjoy the ride!</p>
       </div>
     </div>
-  </div><!-- end page-about -->
+  </div>
 
-
-  <!-- =====================
-       BLOG POST TEMPLATE PAGE
-       This page opens automatically when a post card is clicked.
-       You don't need to edit the header — it's filled in by JavaScript.
-       Only edit the content blocks below (the ones with id="content-...")
-  ===================== -->
+  <!-- POST PAGE -->
   <div id="page-post" class="page">
     <div class="post-page">
-
       <button class="back-btn" onclick="goBack()">← Back</button>
-
-      <!-- Post header — auto-filled by openPost() -->
       <div class="post-cover thumb-lol" id="post-cover">⚔️</div>
       <div class="post-tags" id="post-tags"></div>
-      <h1 class="post-title" id="post-title">Post Title</h1>
-      <div class="post-meta">
-        <span id="post-date">📅 Date</span>
-        <span>✍️ Prpne</span>
-      </div>
-
+      <h1 class="post-title" id="post-title"></h1>
+      <div class="post-meta"><span id="post-date"></span><span>✍️ Prpne</span></div>
       <hr class="post-divider" />
-
-      <!-- ============================================================
-           BLOG CONTENT AREA
-           Find the block matching your post ID and write inside it.
-           You can use: <p>, <h2>, <h3>, <ul>, <li>, <strong>, <em>
-      ============================================================ -->
-      <div class="post-content" id="post-content">
-
-        <!-- ── League post 1 ─────────────────────────────────────
-             ID: lol-post-1
-             Write your content between the <div> tags below.
-             Delete the placeholder block and just type your post!
-        ──────────────────────────────────────────────────────── -->
-        <div id="content-lol-post-1" style="display:none">
-          <div class="post-content-placeholder">
-            <div class="placeholder-icon">📝</div>
-            <p>
-              Your League post goes here.<br/>
-              In VS Code, find <code>content-lol-post-1</code> and replace
-              this placeholder block with your writing.
-            </p>
-          </div>
-        </div>
-
-        <!-- ── League post 2 ─────────────────────────────────────
-             Duplicate this block for each new League post.
-             Change the ID to match your card's openPost() call.
-        ──────────────────────────────────────────────────────── -->
-        <div id="content-lol-post-2" style="display:none">
-          <div class="post-content-placeholder">
-            <div class="placeholder-icon">📝</div>
-            <p>
-              Your second League post goes here.<br/>
-              Find <code>content-lol-post-2</code> and replace this with your writing.
-            </p>
-          </div>
-        </div>
-
-        <!-- ── Minecraft post 1 ───────────────────────────────────
-             ID: mc-post-1
-        ──────────────────────────────────────────────────────── -->
-        <div id="content-mc-post-1" style="display:none">
-          <div class="post-content-placeholder">
-            <div class="placeholder-icon">📝</div>
-            <p>
-              Your Minecraft post goes here.<br/>
-              Find <code>content-mc-post-1</code> and replace this with your writing.
-            </p>
-          </div>
-        </div>
-
-        <!-- ── Minecraft post 2 ───────────────────────────────────
-             Duplicate for each new Minecraft post.
-        ──────────────────────────────────────────────────────── -->
-        <div id="content-mc-post-2" style="display:none">
-          <div class="post-content-placeholder">
-            <div class="placeholder-icon">📝</div>
-            <p>
-              Your second Minecraft post goes here.<br/>
-              Find <code>content-mc-post-2</code> and replace this with your writing.
-            </p>
-          </div>
-        </div>
-
-        <!-- ADD MORE CONTENT BLOCKS HERE following the same pattern -->
-
-      </div><!-- end post-content -->
-
-      <!-- Comments placeholder -->
+      <div class="post-content" id="post-content"></div>
       <div class="comments-section">
         <h3>💬 Comments</h3>
         <div class="comments-placeholder">
-          <p>
-            Comments aren't set up yet. You can add a free service like
-            <code>Disqus</code> or <code>Giscus</code> here later —
-            just paste their embed code in place of this block.
-          </p>
+          <p>Comments coming soon! Check back later.</p>
         </div>
       </div>
-
     </div>
-  </div><!-- end page-post -->
+  </div>
 
-
-  <!-- =====================
-       FOOTER
-       Edit the text on the right side if you like
-  ===================== -->
   <footer>
     <span class="footer-logo">Prpne's Diary ✦</span>
     <span>© 2026 · Made with ☕ and too many respawns</span>
   </footer>
+</div>
 
-</div><!-- end .wrapper -->
+<!-- WRITE POST MODAL -->
+<div id="write-modal" class="modal-overlay" style="display:none" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <h2>✏️ Write a New Post</h2>
+
+    <div class="form-group">
+      <label>Category</label>
+      <select id="post-category">
+        <option value="lol">⚔️ League of Legends</option>
+        <option value="mc">⛏️ Minecraft</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Post Title</label>
+      <input type="text" id="post-title-input" placeholder="e.g. My First Week in the Rift" />
+    </div>
+
+    <div class="form-group">
+      <label>Short Description</label>
+      <input type="text" id="post-desc-input" placeholder="A one-line summary shown on the card" />
+    </div>
+
+    <div class="form-group">
+      <label>Date</label>
+      <input type="text" id="post-date-input" placeholder="e.g. May 12, 2026" />
+    </div>
+
+    <div class="form-group">
+      <label>Your Post Content</label>
+      <textarea id="post-body-input" placeholder="Write your full blog post here. Just type naturally — no code needed!"></textarea>
+      <p class="form-tip">Tip: Press Enter to start a new paragraph. Write as much or as little as you like!</p>
+    </div>
+
+    <div class="modal-buttons">
+      <button class="cancel-btn" onclick="closeWriteModal()">Cancel</button>
+      <button class="publish-btn" onclick="publishPost()">Publish Post 🚀</button>
+    </div>
+  </div>
+</div>
 
 <script>
+  let posts = JSON.parse(localStorage.getItem('prpne-posts') || '[]');
   let previousPage = 'home';
+  let currentPostId = null;
   const navMap = { home: 'nav-home', league: 'nav-league', minecraft: 'nav-minecraft', about: 'nav-about' };
+
+  function savePosts() {
+    localStorage.setItem('prpne-posts', JSON.stringify(posts));
+  }
 
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -652,45 +305,127 @@
     Object.values(navMap).forEach(id => document.getElementById(id).classList.remove('active'));
     if (navMap[name]) document.getElementById(navMap[name]).classList.add('active');
     if (name !== 'post') previousPage = name;
+    renderGrids();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function goBack() { showPage(previousPage); }
 
-  /*
-    openPost(id, meta)
-    Called from a post card's onclick.
+  function renderCard(post, showDelete) {
+    const isLol = post.category === 'lol';
+    return `
+      <div class="post-card" onclick="openPost('${post.id}')">
+        <div class="post-card-thumb ${isLol ? 'thumb-lol' : 'thumb-mc'}">${isLol ? '⚔️' : '⛏️'}</div>
+        <div class="post-card-body">
+          <span class="card-tag ${isLol ? 'tag-lol' : 'tag-mc'}">${isLol ? 'League of Legends' : 'Minecraft'}</span>
+          <h3>${post.title}</h3>
+          <p>${post.desc}</p>
+          <div class="post-card-meta">
+            <span>📅 ${post.date}</span>
+            ${showDelete ? `<button class="delete-btn" onclick="deletePost(event,'${post.id}')">🗑 Delete</button>` : ''}
+          </div>
+        </div>
+      </div>`;
+  }
 
-    id   — matches a content block id like "content-lol-post-1"
-    meta — object with: title, date, tag ('lol' or 'mc'), cover (emoji)
+  function emptyState(category, label) {
+    return `<div class="empty-state" style="grid-column:1/-1">
+      <div class="empty-icon">${category === 'lol' ? '⚔️' : '⛏️'}</div>
+      <p>No ${label} posts yet.<br/>Hit "✏️ Write Post" in the menu to publish your first one!</p>
+      <button onclick="openWriteModal('${category}')">Write your first post</button>
+    </div>`;
+  }
 
-    Example:
-    onclick="openPost('lol-post-1', {
-      title: 'My First Week in the Rift',
-      date:  'May 15, 2026',
-      tag:   'lol',
-      cover: '⚔️'
-    })"
-  */
-  function openPost(id, meta) {
-    document.getElementById('post-title').textContent = meta.title || 'Untitled';
-    document.getElementById('post-date').textContent  = '📅 ' + (meta.date || 'Date TBD');
+  function renderGrids() {
+    const lolPosts = posts.filter(p => p.category === 'lol');
+    const mcPosts  = posts.filter(p => p.category === 'mc');
 
+    // Home grids (no delete button)
+    const homeLol = document.getElementById('home-lol-grid');
+    const homeMc  = document.getElementById('home-mc-grid');
+    if (homeLol) homeLol.innerHTML = lolPosts.length ? lolPosts.slice(0,3).map(p => renderCard(p, false)).join('') : emptyState('lol', 'League');
+    if (homeMc)  homeMc.innerHTML  = mcPosts.length  ? mcPosts.slice(0,3).map(p => renderCard(p, false)).join('') : emptyState('mc', 'Minecraft');
+
+    // League page (with delete)
+    const lgGrid = document.getElementById('league-grid');
+    if (lgGrid) lgGrid.innerHTML = lolPosts.length ? lolPosts.map(p => renderCard(p, true)).join('') : emptyState('lol', 'League');
+
+    // Minecraft page (with delete)
+    const mcGrid = document.getElementById('minecraft-grid');
+    if (mcGrid) mcGrid.innerHTML = mcPosts.length ? mcPosts.map(p => renderCard(p, true)).join('') : emptyState('mc', 'Minecraft');
+  }
+
+  function openPost(id) {
+    const post = posts.find(p => p.id === id);
+    if (!post) return;
+    const isLol = post.category === 'lol';
     const cover = document.getElementById('post-cover');
-    cover.className  = 'post-cover ' + (meta.tag === 'mc' ? 'thumb-mc' : 'thumb-lol');
-    cover.textContent = meta.cover || '🎮';
-
-    document.getElementById('post-tags').innerHTML =
-      meta.tag === 'mc'
-        ? '<span class="card-tag tag-mc">Minecraft</span>'
-        : '<span class="card-tag tag-lol">League of Legends</span>';
-
-    document.querySelectorAll('#post-content > div').forEach(d => d.style.display = 'none');
-    const block = document.getElementById('content-' + id);
-    if (block) block.style.display = 'block';
-
+    cover.className   = 'post-cover ' + (isLol ? 'thumb-lol' : 'thumb-mc');
+    cover.textContent = isLol ? '⚔️' : '⛏️';
+    document.getElementById('post-tags').innerHTML    = `<span class="card-tag ${isLol ? 'tag-lol' : 'tag-mc'}">${isLol ? 'League of Legends' : 'Minecraft'}</span>`;
+    document.getElementById('post-title').textContent = post.title;
+    document.getElementById('post-date').textContent  = '📅 ' + post.date;
+    document.getElementById('post-content').textContent = post.body;
+    currentPostId = id;
     showPage('post');
   }
+
+  function deletePost(e, id) {
+    e.stopPropagation();
+    if (!confirm('Delete this post?')) return;
+    posts = posts.filter(p => p.id !== id);
+    savePosts();
+    renderGrids();
+  }
+
+  function openWriteModal(category) {
+    if (category) document.getElementById('post-category').value = category;
+    document.getElementById('write-modal').style.display = 'flex';
+    document.getElementById('post-title-input').focus();
+  }
+
+  function closeWriteModal() {
+    document.getElementById('write-modal').style.display = 'none';
+    document.getElementById('post-title-input').value = '';
+    document.getElementById('post-desc-input').value  = '';
+    document.getElementById('post-date-input').value  = '';
+    document.getElementById('post-body-input').value  = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target.id === 'write-modal') closeWriteModal();
+  }
+
+  function publishPost() {
+    const title    = document.getElementById('post-title-input').value.trim();
+    const desc     = document.getElementById('post-desc-input').value.trim();
+    const date     = document.getElementById('post-date-input').value.trim();
+    const body     = document.getElementById('post-body-input').value.trim();
+    const category = document.getElementById('post-category').value;
+
+    if (!title) { alert('Please add a title!'); return; }
+    if (!body)  { alert('Please write some content!'); return; }
+
+    const post = {
+      id: 'post-' + Date.now(),
+      title,
+      desc: desc || title,
+      date: date || new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+      body,
+      category
+    };
+
+    posts.unshift(post);
+    savePosts();
+    closeWriteModal();
+    renderGrids();
+
+    const page = category === 'lol' ? 'league' : 'minecraft';
+    showPage(page);
+  }
+
+  // Init
+  renderGrids();
 </script>
 </body>
 </html>
